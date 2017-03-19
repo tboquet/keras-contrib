@@ -12,7 +12,7 @@ from keras.backend import tensorflow_backend as KTF
 import numpy as np
 import os
 import warnings
-from keras.backend.common import floatx, _EPSILON, image_data_format
+from keras.backend.common import _FLOATX, floatx, _EPSILON, image_data_format
 from keras.backend.tensorflow_backend import _preprocess_conv3d_input
 from keras.backend.tensorflow_backend import _preprocess_conv3d_kernel
 from keras.backend.tensorflow_backend import _preprocess_padding
@@ -33,15 +33,15 @@ def _preprocess_deconv_output_shape(x, shape, data_format):
     return shape
 
 
-def conv2d(x, kernel, strides=(1, 1), padding='valid', data_format='channels_first',
-           image_shape=None, filter_shape=None):
+def conv2d(x, kernel, strides=(1, 1), padding='valid',
+           data_format='channels_first', image_shape=None, filter_shape=None):
     '''2D convolution.
     # Arguments
         kernel: kernel tensor.
         strides: strides tuple.
         padding: string, "same" or "valid".
-        data_format: "tf" or "th". Whether to use Theano or TensorFlow dimension ordering
-        in inputs/kernels/ouputs.
+        data_format: "tf" or "th". Whether to use Theano or TensorFlow
+        dimension ordering in inputs/kernels/ouputs.
     '''
     if padding == 'same':
         padding = 'SAME'
