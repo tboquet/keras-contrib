@@ -12,7 +12,7 @@ from keras.backend import tensorflow_backend as KTF
 import numpy as np
 import os
 import warnings
-from keras.backend.common import _FLOATX, floatx, _EPSILON, image_data_format
+from keras.backend.common import floatx, _EPSILON, image_data_format
 from keras.backend.tensorflow_backend import _preprocess_conv3d_input
 from keras.backend.tensorflow_backend import _preprocess_conv3d_kernel
 from keras.backend.tensorflow_backend import _preprocess_padding
@@ -52,7 +52,7 @@ def conv2d(x, kernel, strides=(1, 1), padding='valid',
 
     strides = (1,) + strides + (1,)
 
-    if _FLOATX == 'float64':
+    if floatx() == 'float64':
         # tf conv2d only supports float32
         x = tf.cast(x, 'float32')
         kernel = tf.cast(kernel, 'float32')
@@ -73,7 +73,7 @@ def conv2d(x, kernel, strides=(1, 1), padding='valid',
     else:
         raise Exception('Unknown data_format: ' + str(data_format))
 
-    if _FLOATX == 'float64':
+    if floatx() == 'float64':
         x = tf.cast(x, 'float64')
     return x
 
