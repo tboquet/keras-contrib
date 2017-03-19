@@ -145,7 +145,8 @@ def extract_image_patches(x, ksizes, ssizes, padding="same",
                                        padding)
     # Reshaping to fit Theano
     bs, w, h, ch = KTF.int_shape(patches)
-    patches = tf.reshape(tf.transpose(tf.reshape(patches, [-1, w, h, tf.floordiv(ch, ch_i), ch_i]), [0, 1, 2, 4, 3]),
+    patches = tf.reshape(patches, [-1, w, h, tf.floordiv(ch, ch_i), ch_i])
+    patches = tf.reshape(tf.transpose(patches, [0, 1, 2, 4, 3]),
                          [-1, w, h, ch_i, ksizes[0], ksizes[1]])
     if data_format == "tf":
         patches = KTF.permute_dimensions(patches, [0, 1, 2, 4, 5, 3])
@@ -153,7 +154,8 @@ def extract_image_patches(x, ksizes, ssizes, padding="same",
 
 
 def depth_to_space(input, scale, data_format=None):
-    ''' Uses phase shift algorithm to convert channels/depth for spatial resolution '''
+    ''' Uses phase shift algorithm to convert channels/depth for spatial
+    resolution '''
     if data_format is None:
         data_format = image_data_format()
     data_format = data_format.lower()
